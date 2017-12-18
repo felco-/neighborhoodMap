@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  align-items: stretch;
+}
+.mainContainer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  padding: 0px;
+}
+.divMap, #map {
+  padding: 0px;
+  height: calc(100vh - 47px);
+}
+.addressInput {
+  max-width: 100%;
+}
+html, body {
+  overflow: hidden;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.navbar-custom {
+  width: 100%;
+  margin: 0px;
+  padding: 0px;
+  border: 0px;
+  height: 47px;
+  position: inherit;
+}
+.navbar-custom-button {
+  font-size: 16px;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+}
+.sidebar-custom {
+  display: none;
+  padding-left: 10px;
+  background-color: #2196f3;
+}
+.navheader-custom {
+  background-color: #2196f3;
+}
+.sidebar-text-style {
+  font-family: serif;
+}
+.list-custom-style {
+  max-width: 97%;
+}
