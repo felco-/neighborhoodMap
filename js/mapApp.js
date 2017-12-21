@@ -15,7 +15,6 @@ function initMap() {
   * Create a new Map and create the Map Markers Array.
   */
   var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  var markInfo = new google.maps.InfoWindow();
   var mapMarkersArr = [];
 
   /*
@@ -29,71 +28,14 @@ function initMap() {
     self.currentFilter = ko.observable();
 
     /*
-    * Create Observables for the Info Window.
-    */
-    self.infoDowntown = ko.observable();
-    self.infoGaleriaDoRock = ko.observable();
-    self.infoTeatroMunicipal = ko.observable();
-    self.infoMemorialAL = ko.observable();
-    self.infoMasp = ko.observable();
-
-    /*
-    * Get Wikipedia Data for each Map Location.
-    */
-    $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?format=json&origin=*&utf8&action=query&rawcontinue=true&prop=extracts&exintro=true&explaintext=true&exchars=420&exsectionformat=wiki&titles=Praça_da_Sé",
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        self.infoDowntown("<h3>Praça da Sé</h3><br />Address: Praça da Sé - República<br /><br />" + data.query.pages[Object.keys(data.query.pages)[0]].extract + "<br /><br />Source: <a href='https://en.wikipedia.org/wiki/Praça_da_Sé' target='_blank'>https://en.wikipedia.org/wiki/Praça_da_Sé</a>");
-      }
-    });
-
-    $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?format=json&origin=*&utf8&action=query&rawcontinue=true&prop=extracts&exintro=true&explaintext=true&exchars=420&exsectionformat=wiki&titles=Galeria_do_Rock",
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        self.infoGaleriaDoRock("<h3>Galeria do Rock</h3><br />Address: Av. São João, 439 - República<br /><br />" + data.query.pages[Object.keys(data.query.pages)[0]].extract + "<br /><br />Source: <a href='https://en.wikipedia.org/wiki/Galeria_do_Rock' target='_blank'>https://en.wikipedia.org/wiki/Galeria_do_Rock</a>");
-      }
-    });
-
-    $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?format=json&origin=*&utf8&action=query&rawcontinue=true&prop=extracts&exintro=true&explaintext=true&exchars=420&exsectionformat=wiki&titles=Theatro_Municipal_(São_Paulo)",
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        self.infoTeatroMunicipal("<h3>Teatro Municipal</h3><br />Address: Praça Ramos de Azevedo - República<br /><br />" + data.query.pages[Object.keys(data.query.pages)[0]].extract + "<br /><br />Source: <a href='https://en.wikipedia.org/wiki/Theatro_Municipal_(São_Paulo)' target='_blank'>https://en.wikipedia.org/wiki/Theatro_Municipal_(São_Paulo)</a>");
-      }
-    });
-
-    $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?format=json&origin=*&utf8&action=query&rawcontinue=true&prop=extracts&exintro=true&explaintext=true&exchars=420&exsectionformat=wiki&titles=Latin_America_Memorial",
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        self.infoMemorialAL("<h3>Memorial da América Latina</h3><br />Address: Av. Auro Soares de Moura Andrade, 664 - Barra Funda<br /><br />" + data.query.pages[Object.keys(data.query.pages)[0]].extract  + "<br /><br />Source: <a href='https://en.wikipedia.org/wiki/Latin_America_Memorial' target='_blank'>https://en.wikipedia.org/wiki/Latin_America_Memorial</a>");
-      }
-    });
-
-    $.ajax({
-      url: "https://en.wikipedia.org/w/api.php?format=json&origin=*&utf8&action=query&rawcontinue=true&prop=extracts&exintro=true&explaintext=true&exchars=420&exsectionformat=wiki&titles=São_Paulo_Museum_of_Art",
-      type: "GET",
-      dataType: 'json',
-      success: function(data) {
-        self.infoMasp("<h3>Museu de Arte de São Paulo</h3><br />Address: Av. Paulista, 1578 - Bela Vista<br /><br />" + data.query.pages[Object.keys(data.query.pages)[0]].extract + "<br /><br />Source: <a href='https://en.wikipedia.org/wiki/São_Paulo_Museum_of_Art' target='_blank'>https://en.wikipedia.org/wiki/São_Paulo_Museum_of_Art</a>");
-      }
-    });
-
-    /*
     * Set an Observable Array with know Map Locations.
     */
     self.mapLocations = ko.observableArray([
-      {idName: "downtown", markFun: function markFun() { downtown(); }, friendyName: "Praça Da Sé (Downtown)", infoContent: function infoContent() { return self.infoDowntown(); }, lat: -23.5503644, lng: -46.6339456},
-      {idName: "galeriaDoRock", markFun: function markFun() { galeriaDoRock(); }, friendyName: "Galeria Do Rock", infoContent: function infoContent() { return self.infoGaleriaDoRock(); }, lat: -23.542665, lng: -46.6404518},
-      {idName: "teatroMunicipal", markFun: function markFun() { teatroMunicipal(); }, friendyName: "Teatro Municipal", infoContent: function infoContent() { return self.infoTeatroMunicipal(); }, lat: -23.545235, lng: -46.6386151},
-      {idName: "memorialAL", markFun: function markFun() { memorialAL(); }, friendyName: "Memorial Da America Latina", infoContent: function infoContent() { return self.infoMemorialAL(); }, lat: -23.5272349, lng: -46.6650873},
-      {idName: "masp", markFun: function markFun() { masp(); }, friendyName: "Museu De Arte São Paulo", infoContent: function infoContent() { return self.infoMasp(); }, lat: -23.5613876, lng: -46.6558215}
+      {idName: "downtown", friendyName: "Praça Da Sé (Downtown)", infoContent: "<strong>Praça Da Sé</strong><br />Praça Da Sé - Sé", lat: -23.5503644, lng: -46.6339456},
+      {idName: "galeriaDoRock", friendyName: "Galeria Do Rock", infoContent: "<strong>Galeria Do Rock</strong><br />Av. São João, 439 - República", lat: -23.542665, lng: -46.6404518},
+      {idName: "teatroMunicipal", friendyName: "Teatro Municipal", infoContent: "<strong>Teatro Municipal</strong><br />Praça Ramos de Azevedo, s/n - República", lat: -23.545235, lng: -46.6386151},
+      {idName: "memorialAL", friendyName: "Memorial Da America Latina", infoContent: "<strong>Memorial Da America Latina</strong><br />Av. Auro Soares de Moura Andrade, 664 - Barra Funda", lat: -23.5272349, lng: -46.6650873},
+      {idName: "masp", friendyName: "Museu De Arte São Paulo", infoContent: "<strong>Museu De Arte São Paulo</strong><br />Av. Paulista, 1578 - Bela Vista", lat: -23.5613876, lng: -46.6558215}
     ]);
 
     /*
@@ -140,6 +82,13 @@ function initMap() {
         var clickState
 
         /*
+        * Create a new Info Window and set the content.
+        */
+        var markInfo = new google.maps.InfoWindow({
+          content: self.filterLocations()[cityLocation].infoContent
+        });
+
+        /*
         * Create a new Map Marker and set the position, map Object, title.
         */
         var mapsMarker = new google.maps.Marker({
@@ -156,42 +105,41 @@ function initMap() {
         * Marker and Zoom In.
         */
         mapsMarker.addListener('click', function() {
-          clickState = !clickState;
-          if (clickState) {
-            mapsMarker.setAnimation(google.maps.Animation.BOUNCE);
-            markInfo.setContent(self.filterLocations()[cityLocation].infoContent());
-            markInfo.open(map, mapsMarker);
-            map.setZoom(18);
-            map.setCenter(newMarker);
-          } else {
-            mapsMarker.setAnimation(null);
-            map.setZoom(14);
-            markInfo.close();
-          }
-          self.clickState = clickState;
+          (function($) {
+            clickState = !clickState;
+            if (clickState) {
+              mapsMarker.setAnimation(google.maps.Animation.BOUNCE);
+              markInfo.open(map, mapsMarker);
+              map.setZoom(18);
+              map.setCenter(newMarker);
+            } else {
+              mapsMarker.setAnimation(null);
+              map.setZoom(14);
+              markInfo.close();
+            }
+            $(this).data('clickState', clickState);
+          })(jQuery);
         });
 
         /*
-        * Create a function to listen for clicks in the Locations list
+        * Create a jQuery function to listen for clicks in the Locations list
         * and open the Info Window. Tracks the Click State. In the click event
         * set the center to this Marker and Zoom In.
         */
-        var functionName = self.filterLocations()[cityLocation].idName;
-        window[functionName] = function() {
-          clickState = !clickState;
-          if (clickState) {
-            mapsMarker.setAnimation(google.maps.Animation.BOUNCE);
-            markInfo.setContent(self.filterLocations()[cityLocation].infoContent());
-            markInfo.open(map, mapsMarker);
-            map.setZoom(18);
-            map.setCenter(newMarker);
-          } else {
-            mapsMarker.setAnimation(null);
-            map.setZoom(14);
-            markInfo.close();
-          }
-          self.clickState = clickState;
-        }
+        (function($) {
+          $('#' + self.filterLocations()[cityLocation].idName).on('click', function () {
+            clickState = !clickState;
+            if (clickState) {
+              markInfo.open(map, mapsMarker);
+              map.setZoom(18);
+              map.setCenter(newMarker);
+            } else {
+              map.setZoom(14);
+              markInfo.close();
+            }
+            $(this).data('clickState', clickState);
+          });
+        })(jQuery);
 
         /*
         * Update the map boundaries and update the Map Markers Array.

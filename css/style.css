@@ -14,7 +14,7 @@
   height: calc(100vh - 47px);
 }
 .addressInput {
-  width: 97%;
+  max-width: 100%;
 }
 html, body {
   overflow: hidden;
