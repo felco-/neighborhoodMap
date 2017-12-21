@@ -19,23 +19,13 @@
       <div id="sidebar" class="sidebar-custom">
         <div class="sidebar-header">
           <h3 class="sidebar-text-style">São Paulo's Locations</h3>
-          <div class="input-group addressInput">
-            <form class="input-group" onsubmit="event.preventDefault()">
               <!-- Bind the currentFilter value to the Search Input Box and update as the user type. -->
-              <input type="text" class="form-control" placeholder="Search for..." data-bind='value: currentFilter, valueUpdate: "afterkeydown"' />
-              <span class="input-group-btn">
-                <!-- On the Filter Button click call setFilter function to reset the Map Markers. -->
-                <button class="btn btn-info" type="submit" data-bind="click: function() { setFilter(currentFilter()) }">
-                  <i class="fa fa-filter"></i>
-                </button>
-              </span>
-            </form>
-          </div>
+              <input type="text" name="searchInput" class="form-control addressInput" placeholder="Search for..." data-bind='textInput: currentFilter, if: setFilter(currentFilter())' />
         </div>
         <br />
         <!-- Retrieve from the filterLocations the current avaliable locations to show. -->
         <ul class="list-group list-custom-style" data-bind="foreach: filterLocations">
-          <li class="list-group-item" data-bind="attr: {'id': $data.idName}"><span data-bind="text: $data.friendyName"></span></li>
+          <li class="list-group-item" data-bind="click: function() { $data.markFun() }"><span data-bind="text: $data.friendyName"></span></li>
         </ul>
       </div>
       <!-- End of Sidebar. -->
@@ -59,12 +49,13 @@
       </div>
     </div>
     <!-- End Wrapper -->
-    <!-- Set jQuery, Bootstrap, Knockout and Google Maps javascript files. -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <!-- Set jQuery, Bootstrap and Knockout javascript files. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoIB65C0sHFF7IrcjGaPdUrprcrDvPSlg&callback=initMap" async defer></script>
     <!-- Set my custom javascript file to handle the application. -->
     <script src="js/mapApp.js"></script>
+    <!-- Set Google Maps JS. -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoIB65C0sHFF7IrcjGaPdUrprcrDvPSlg&callback=initMap" async defer></script>
   </body>
 </html>
